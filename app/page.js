@@ -1,7 +1,3 @@
-
-
 export default function Home() {
-  return (
-    <main>amazon clone app</main>
-  )
+  return <main>amazon clone app</main>;
 }
