@@ -1,3 +1,9 @@
+import Banner from "@/components/Banner";
+
 export default function Home() {
-  return <main>amazon clone app</main>;
+  return (
+    <main>
+      <Banner />
+    </main>
+  );
 }
