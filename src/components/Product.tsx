@@ -6,6 +6,8 @@ import Currency from "react-currency-formatter";
 import { MAX_RATING, MIN_RATING } from "../constants";
 
 import { IProduct } from "../interface";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../slices/cartSlice";
 
 interface Props {
   product: IProduct;
@@ -14,11 +16,26 @@ interface Props {
 const Product: FC<Props> = ({
   product: { id, image, category, title, description, price },
 }) => {
+  const dispatch = useDispatch();
+
   const [rating] = useState(
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
   );
 
   const [hasPrime] = useState(Math.random() < 0.5);
+
+  const addItemToBasket = () => {
+    const product = {
+      id,
+      image,
+      category,
+      title,
+      description,
+      price,
+      hasPrime,
+    };
+    dispatch(addToCart(product));
+  };
 
   return (
     <div className="relative flex flex-col m-5 bg-white z-30 p-10">
@@ -62,7 +79,9 @@ const Product: FC<Props> = ({
         </div>
       )}
 
-      <button className="mt-auto button">Add to Cart</button>
+      <button className="mt-auto button" onClick={addItemToBasket}>
+        Add to Cart
+      </button>
     </div>
   );
 };
