@@ -5,6 +5,7 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
 import { FC } from "react";
+import { signIn, signOut, useSession } from "next-auth/client";
 
 const menuItems = [
   {
@@ -66,6 +67,8 @@ const BottomNavBar: FC = () => (
 );
 
 const Header = () => {
+  const [session] = useSession();
+
   return (
     <header>
       {/* Top Nav */}
@@ -90,8 +93,11 @@ const Header = () => {
 
         {/* Account Info */}
         <div className="text-white flex items-center text-xs space-x-6 whitespace-nowrap mr-6">
-          <div className="link">
-            <p>Hello Ghanshyam Tanchak</p>
+          <div
+            className="link"
+            onClick={() => (!session ? signIn() : signOut())}
+          >
+            <p>{session ? `Hello ${session.user?.name}` : "Sign In"}</p>
             <p className="font-extrabold md:text-sm">Account & Lists</p>
           </div>
           <div className="link">
